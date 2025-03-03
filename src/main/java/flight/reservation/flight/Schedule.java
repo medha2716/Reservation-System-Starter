@@ -6,12 +6,22 @@ import java.util.Date;
 import java.util.List;
 
 public class Schedule {
-
+    private static Schedule instance;
     private List<ScheduledFlight> scheduledFlights;
 
-
-    public Schedule() {
+    private Schedule() {
         scheduledFlights = new ArrayList<>();
+    }
+
+    public static Schedule getInstance() {
+        if (instance == null) {
+            synchronized (Schedule.class) {
+                if (instance == null) {
+                    instance = new Schedule();
+                }
+            }
+        }
+        return instance;
     }
 
     public List<ScheduledFlight> getScheduledFlights() {
